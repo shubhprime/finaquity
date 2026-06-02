@@ -2,7 +2,9 @@ import os
 import time
 import requests
 import psycopg2
+import threading
 from dotenv import load_dotenv
+from flask import Flask
 
 # Load environment variables
 load_dotenv()
@@ -100,9 +102,17 @@ def check_and_post_alerts():
     except Exception as e:
         print("Error in check_and_post_alerts execution: ", e)
 
-if __name__ == "__main__":
+# Initialize Flask application
+app = Flask(__name__)
+
+@app.route('/')
+@app.route('/health')
+def health_check():
+    return {"status": "healthy", "message": "Finaquity Telegram bot is running"}, 200
+
+def run_scheduler():
     init_db_posted_column()
-    print("Finaquity Telegram automated bot scheduler started.")
+    print("Finaquity Telegram automated bot scheduler thread started.")
     
     # Run immediate check
     check_and_post_alerts()
@@ -112,3 +122,13 @@ if __name__ == "__main__":
     while True:
         time.sleep(INTERVAL_SECONDS)
         check_and_post_alerts()
+
+# Start the scheduler checking loop inside a background daemon thread
+scheduler_thread = threading.Thread(target=run_scheduler, daemon=True)
+scheduler_thread.start()
+
+if __name__ == "__main__":
+    # Start the Flask web application locally on the specified PORT environment variable (default 5000)
+    port = int(os.getenv("PORT", 5000))
+    print(f"Starting Flask server on port {port}...")
+    app.run(host="0.0.0.0", port=port)
