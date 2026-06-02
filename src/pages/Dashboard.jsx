@@ -10,7 +10,8 @@ const Dashboard = () => {
   ]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/stocks')
+    const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    axios.get(`${apiBase}/api/stocks`)
       .then(res => {
         if (res.data && res.data.length > 0) {
           setActiveTrades(res.data);

@@ -103,7 +103,8 @@ const MarketAnalysis = () => {
   // Fetch news from PostgreSQL backend API
   useEffect(() => {
     if (path === '/market-news') {
-      axios.get('http://localhost:5000/api/news')
+      const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      axios.get(`${apiBase}/api/news`)
         .then(res => {
           if (res.data && res.data.length > 0) {
             setNewsList(res.data);
