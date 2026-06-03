@@ -108,11 +108,11 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/health')
 def health_check():
-    return {"status": "healthy", "message": "Finaquity Telegram bot is running"}, 200
+    return {"status": "healthy", "message": "Greenmarket Telegram bot is running"}, 200
 
 def run_scheduler():
     init_db_posted_column()
-    print("Finaquity Telegram automated bot scheduler thread started.")
+    print("Greenmarket Telegram automated bot scheduler thread started.")
     
     # Run immediate check
     check_and_post_alerts()

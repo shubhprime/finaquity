@@ -25,7 +25,7 @@ const AlgoTrade = () => {
             Automated Execution
           </div>
           <h1 className="text-4xl font-extrabold text-white mb-3">
-            Finaquity <span className="fq-gradient-text">Algo Trade</span>
+            Greenmarket <span className="fq-gradient-text">Algo Trade</span>
           </h1>
           <p className="text-sm text-gray-400 leading-relaxed">
             Execute professional trade suggestions instantly in your Demat account. Zero latency, zero manual errors, and zero emotional bias.
@@ -100,7 +100,7 @@ const AlgoTrade = () => {
               <div>
                 <h3 className="text-sm font-bold text-white mb-1">Military-Grade API Encryption</h3>
                 <p className="text-xs text-gray-400 leading-relaxed">
-                  FinEquity employs AES-256 secure encryption protocols. Your broker details remain fully sandboxed and are never shared or logged.
+                  Greenmarket employs AES-256 secure encryption protocols. Your broker details remain fully sandboxed and are never shared or logged.
                 </p>
               </div>
             </div>

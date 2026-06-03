@@ -137,7 +137,7 @@ const MarketAnalysis = () => {
             </div>
             <div>
               <h1 className="text-3xl font-extrabold text-white">{pageTitle}</h1>
-              <p className="text-xs text-gray-400 mt-1">Live market data tracking for Finaquity users.</p>
+              <p className="text-xs text-gray-400 mt-1">Live market data tracking for Greenmarket users.</p>
             </div>
           </div>
           <span className="px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold uppercase tracking-wider self-start md:self-center">
@@ -210,7 +210,7 @@ const MarketAnalysis = () => {
               </span>
               <h3 className="text-sm font-bold text-white mb-2">SEBI Market Brief</h3>
               <p className="text-[11px] text-gray-400 leading-relaxed">
-                Check indexes levels and market sector indicators periodically. Trade ideas are unlocked under Finaquity Club.
+                Check indexes levels and market sector indicators periodically. Trade ideas are unlocked under Greenmarket Club.
               </p>
             </div>
           </div>

@@ -86,7 +86,7 @@ const TradeIdeas = () => {
               Unlock Premium <span className="fq-gradient-text">{pageTitle}</span>
             </h2>
             <p className="text-xs text-gray-400 max-w-md mb-8 leading-relaxed">
-              This module requires an active Finaquity Club membership. Subscribe today to receive high-win-rate signals directly on WhatsApp.
+              This module requires an active Greenmarket Club membership. Subscribe today to receive high-win-rate signals directly on WhatsApp.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4">
@@ -94,7 +94,7 @@ const TradeIdeas = () => {
                 to="/club"
                 className="fq-btn-primary px-8 py-3 text-sm font-bold shadow-xl shadow-emerald-500/20 hover:scale-105 transition-transform"
               >
-                Join Finaquity Club
+                Join Greenmarket Club
               </Link>
               <Link
                 to="/LoginSignup?mode=login"

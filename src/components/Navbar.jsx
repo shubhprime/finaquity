@@ -140,9 +140,9 @@ const Navbar = () => {
         <div className="flex items-center gap-8">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 shrink-0">
-            <span className="w-6 h-6 rounded-lg bg-gradient-to-br from-emerald-400 to-green-500 flex items-center justify-center font-black text-black text-sm">F</span>
+            <span className="w-6 h-6 rounded-lg bg-gradient-to-br from-emerald-400 to-green-500 flex items-center justify-center font-black text-black text-sm">G</span>
             <span className="font-extrabold text-lg tracking-wider bg-gradient-to-r from-emerald-400 via-teal-300 to-green-500 bg-clip-text text-transparent uppercase font-poppins">
-              Finaquity
+              Greenmarket
             </span>
           </Link>
 
@@ -235,9 +235,9 @@ const Navbar = () => {
               </AnimatePresence>
             </div>
 
-            {/* Finaquity Club Link */}
+            {/* Greenmarket Club Link */}
             <Link to="/club" className="relative text-sm font-medium text-gray-300 hover:text-white transition-colors">
-              Finaquity Club
+              Greenmarket Club
               <span className="absolute -top-3.5 -right-6 px-1.5 py-0.5 rounded-full bg-gradient-to-r from-emerald-400 to-green-600 text-black text-[9px] font-extrabold animate-bounce">
                 Join
               </span>
@@ -357,7 +357,7 @@ const Navbar = () => {
 
             {/* Other links */}
             <div className="flex flex-col gap-3 pt-3 border-t border-white/5">
-              <Link to="/club" className="text-sm font-semibold text-gray-200">Finaquity Club</Link>
+              <Link to="/club" className="text-sm font-semibold text-gray-200">Greenmarket Club</Link>
               <Link to="/algo-trade" className="text-sm font-semibold text-gray-200">Algo Trade</Link>
               <Link to="/PastPerformance" className="text-sm font-semibold text-gray-200">Our Success</Link>
             </div>

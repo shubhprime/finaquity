@@ -33,7 +33,7 @@ const LoginSignup = () => {
                 Secure Onboarding
               </span>
               <h2 className="text-2xl font-extrabold text-white">
-                {mode === 'login' ? 'Welcome back to' : 'Join the'} <span className="fq-gradient-text">Finaquity Portal</span>
+                {mode === 'login' ? 'Welcome back to' : 'Join the'} <span className="fq-gradient-text">Greenmarket Portal</span>
               </h2>
               <p className="text-xs text-gray-400 mt-2">
                 {mode === 'login' ? 'Access your dashboard and live advisory calls.' : 'Create an account to begin trading with SEBI insights.'}

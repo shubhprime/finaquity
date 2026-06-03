@@ -163,7 +163,7 @@ const Footer = () => {
         <div className="mt-8 pt-6 border-t border-white/5">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 text-center md:text-left">
             <p className="text-xs font-semibold text-gray-400">
-              © {currentYear} Finaquity — All rights reserved
+              © {currentYear} Greenmarket — All rights reserved
             </p>
             <p className="text-xs text-gray-500 flex items-center justify-center md:justify-end gap-1.5">
               Built with <Heart className="h-3.5 w-3.5 text-rose-500 fill-rose-500" /> for everyone who loves to learn, trade & invest
@@ -172,7 +172,7 @@ const Footer = () => {
           
           <div className="mt-4 text-[10px] text-gray-500 leading-relaxed space-y-2">
             <p>
-              Trading is risky, especially with leverage. Finaquity isn't a financial advisor. You're responsible for your decisions; we assume no liability.
+              Trading is risky, especially with leverage. Greenmarket isn't a financial advisor. You're responsible for your decisions; we assume no liability.
             </p>
             <p>
               The above analysis is for educational purposes only, based on research, and not a recommendation to buy or sell. Always consult your financial advisor before making any investment decisions.

@@ -30,7 +30,7 @@ const Home = () => {
   const categories = [
     "FII/DII Activity", "Market News", "Option Chain", "Top Gainers", 
     "Top Losers", "F&O Trade", "Commodities", "Global Markets", 
-    "Crypto Trade", "Finaquity Club", "Stock Research"
+    "Crypto Trade", "Greenmarket Club", "Stock Research"
   ];
 
   // Pricing Billing Cycle Toggle
@@ -133,7 +133,7 @@ const Home = () => {
       name: "Rohit Sharma",
       designation: "Full-Time Trader, Mumbai",
       rating: 5,
-      feedback: "Finaquity completely shifted my trading style. The SEBI advisory insights are extremely accurate and it cut my research time in half!"
+      feedback: "Greenmarket completely shifted my trading style. The SEBI advisory insights are extremely accurate and it cut my research time in half!"
     },
     {
       id: 2,
@@ -154,7 +154,7 @@ const Home = () => {
       name: "Priyanka Sen",
       designation: "F&O Trader, Kolkata",
       rating: 5,
-      feedback: "Being a part of the Finaquity Club WhatsApp community is worth every rupee. The live trade alerts are highly profitable and fast."
+      feedback: "Being a part of the Greenmarket Club WhatsApp community is worth every rupee. The live trade alerts are highly profitable and fast."
     }
   ];
 
@@ -205,7 +205,7 @@ const Home = () => {
               to="/club" 
               className="fq-btn-primary px-8 py-3.5 text-base shadow-xl shadow-emerald-500/20 hover:scale-105 transition-transform"
             >
-              Join Finaquity Club
+              Join Greenmarket Club
               <ArrowRight size={18} />
             </Link>
             <Link 
@@ -224,7 +224,7 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 text-center mb-8">
           <div className="fq-section-eyebrow mb-3 mx-auto">
             <Sparkles size={12} className="text-emerald-400" />
-            Popular at Finaquity
+            Popular at Greenmarket
           </div>
           <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-white">
             Decode markets <span className="fq-gradient-text">like never before</span>
@@ -299,7 +299,7 @@ const Home = () => {
             Tired of Losing Money in Stock Market?
           </h2>
           <span className="text-lg sm:text-2xl font-semibold text-emerald-400 block mb-10">
-            Join Finaquity Club
+            Join Greenmarket Club
           </span>
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto text-left">
@@ -673,7 +673,7 @@ const Home = () => {
               Loved by <span className="fq-gradient-text">3,000+ active traders</span>
             </h2>
             <p className="text-sm text-gray-400">
-              Read how members of the FinEquity Club are scaling their portfolios.
+              Read how members of the Greenmarket Club are scaling their portfolios.
             </p>
           </div>
 
@@ -735,7 +735,7 @@ const Home = () => {
               to="/club"
               className="fq-btn-primary px-8 py-3.5 text-base font-bold shadow-xl shadow-emerald-500/20"
             >
-              Join the Finaquity Club
+              Join the Greenmarket Club
             </Link>
           </div>
         </div>

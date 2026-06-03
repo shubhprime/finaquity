@@ -22,7 +22,7 @@ const Club = () => {
     {
       icon: Zap,
       title: "Algo Automations Support",
-      description: "Connect your Demat/broker account via API and auto-execute Finaquity Club trade recommendations with zero delay."
+      description: "Connect your Demat/broker account via API and auto-execute Greenmarket Club trade recommendations with zero delay."
     },
     {
       icon: BookOpen,
@@ -48,7 +48,7 @@ const Club = () => {
             👑 Premium Access
           </div>
           <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-4">
-            Welcome to <span className="fq-gradient-text font-black">Finaquity Club</span>
+            Welcome to <span className="fq-gradient-text font-black">Greenmarket Club</span>
           </h1>
           <p className="text-sm sm:text-base text-gray-400 leading-relaxed">
             The ultimate wealth circle for retail traders. Access institutional-grade signals, automated algo execution, and direct advisory desks.
