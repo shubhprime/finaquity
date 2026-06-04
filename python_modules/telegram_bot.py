@@ -110,6 +110,14 @@ app = Flask(__name__)
 def health_check():
     return {"status": "healthy", "message": "Greenmarket Telegram bot is running"}, 200
 
+@app.route('/check')
+def trigger_check():
+    try:
+        check_and_post_alerts()
+        return {"status": "success", "message": "Checked database and posted any new alerts to Telegram"}, 200
+    except Exception as e:
+        return {"status": "error", "message": str(e)}, 500
+
 def run_scheduler():
     init_db_posted_column()
     print("Greenmarket Telegram automated bot scheduler thread started.")
