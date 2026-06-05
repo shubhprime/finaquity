@@ -13,14 +13,20 @@ const LoginSignup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Save user email to localStorage session
-    localStorage.setItem("userEmail", email.trim());
     
-    // Check if user is an administrator
     const admins = ["kalyanjit@gmail.com", "djmedhi.proedgetrader@gmail.com"];
-    if (admins.map(a => a.toLowerCase()).includes(email.trim().toLowerCase())) {
+    const isAdminEmail = admins.map(a => a.toLowerCase()).includes(email.trim().toLowerCase());
+    
+    if (isAdminEmail) {
+      // Validate admin password
+      if (password !== "GreenmarketAdmin123!") {
+        alert("Invalid admin credentials!");
+        return;
+      }
+      localStorage.setItem("userEmail", email.trim());
       navigate('/admin');
     } else {
+      localStorage.setItem("userEmail", email.trim());
       navigate('/dashboard');
     }
   };
