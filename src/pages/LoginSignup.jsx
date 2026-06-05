@@ -13,8 +13,16 @@ const LoginSignup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Simulate successful authentication and redirect to dashboard
-    navigate('/dashboard');
+    // Save user email to localStorage session
+    localStorage.setItem("userEmail", email.trim());
+    
+    // Check if user is an administrator
+    const admins = ["kalyanjit@gmail.com", "djmedhi.proedgetrader@gmail.com"];
+    if (admins.map(a => a.toLowerCase()).includes(email.trim().toLowerCase())) {
+      navigate('/admin');
+    } else {
+      navigate('/dashboard');
+    }
   };
 
   return (

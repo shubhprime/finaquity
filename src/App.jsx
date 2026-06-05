@@ -16,6 +16,7 @@ import LoginSignup from './pages/LoginSignup';
 import Dashboard from './pages/Dashboard';
 import MarketAnalysis from './pages/MarketAnalysis';
 import TradeIdeas from './pages/TradeIdeas';
+import Admin from './pages/Admin';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/PastPerformance" element={<Success />} />
           <Route path="/LoginSignup" element={<LoginSignup />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/admin" element={<Admin />} />
 
           {/* Market Pulse Dropdowns */}
           <Route path="/market-news" element={<MarketAnalysis />} />

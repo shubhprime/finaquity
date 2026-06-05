@@ -41,6 +41,15 @@ const Navbar = () => {
     setActiveDropdown(null);
   }, [location]);
 
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  // Check if logged-in user is an administrator
+  useEffect(() => {
+    const email = localStorage.getItem("userEmail") || "";
+    const admins = ["kalyanjit@gmail.com", "djmedhi.proedgetrader@gmail.com"];
+    setIsAdmin(admins.map(a => a.toLowerCase()).includes(email.toLowerCase()));
+  }, [location]);
+
   // Live Indices Dummy Data
   const indices = [
     { name: "NIFTY 50", price: "23,452.15", change: 104.40, pct: 0.45 },
@@ -293,6 +302,14 @@ const Navbar = () => {
             <Link to="/PastPerformance" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">
               Our Success
             </Link>
+
+            {/* Admin Link */}
+            {isAdmin && (
+              <Link to="/admin" className="text-sm font-bold text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1.5">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                Admin Panel
+              </Link>
+            )}
           </div>
         </div>
 
@@ -360,6 +377,12 @@ const Navbar = () => {
               <Link to="/club" className="text-sm font-semibold text-gray-200">Greenmarket Club</Link>
               <Link to="/algo-trade" className="text-sm font-semibold text-gray-200">Algo Trade</Link>
               <Link to="/PastPerformance" className="text-sm font-semibold text-gray-200">Our Success</Link>
+              {isAdmin && (
+                <Link to="/admin" className="text-sm font-bold text-emerald-400 flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                  Admin Panel
+                </Link>
+              )}
             </div>
 
             {/* Action buttons */}
