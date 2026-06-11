@@ -67,12 +67,12 @@ async function initDb() {
     await client.query(`
       INSERT INTO users (name, email, password, role, plan)
       VALUES ('Kalyanjit', 'kalyanjit@gmail.com', 'GreenmarketAdmin123!', 'admin', 'Club Pro')
-      ON CONFLICT (email) DO NOTHING;
+      ON CONFLICT (email) DO UPDATE SET password = EXCLUDED.password, role = EXCLUDED.role, plan = EXCLUDED.plan;
     `);
     await client.query(`
       INSERT INTO users (name, email, password, role, plan)
       VALUES ('DJ Medhi', 'djmedhi.proedgetrader@gmail.com', 'GreenmarketAdmin123!', 'admin', 'Club Pro')
-      ON CONFLICT (email) DO NOTHING;
+      ON CONFLICT (email) DO UPDATE SET password = EXCLUDED.password, role = EXCLUDED.role, plan = EXCLUDED.plan;
     `);
 
     // Seed tables if empty
