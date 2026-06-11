@@ -50,6 +50,31 @@ async function initDb() {
       );
     `);
 
+    // Create Users table
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        email VARCHAR(255) UNIQUE NOT NULL,
+        password VARCHAR(255) NOT NULL,
+        role VARCHAR(50) DEFAULT 'user',
+        plan VARCHAR(100) DEFAULT 'Trader Club Plan',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
+    // Seed default admin users
+    await client.query(`
+      INSERT INTO users (name, email, password, role, plan)
+      VALUES ('Kalyanjit', 'kalyanjit@gmail.com', 'GreenmarketAdmin123!', 'admin', 'Club Pro')
+      ON CONFLICT (email) DO NOTHING;
+    `);
+    await client.query(`
+      INSERT INTO users (name, email, password, role, plan)
+      VALUES ('DJ Medhi', 'djmedhi.proedgetrader@gmail.com', 'GreenmarketAdmin123!', 'admin', 'Club Pro')
+      ON CONFLICT (email) DO NOTHING;
+    `);
+
     // Seed tables if empty
     const newsCheck = await client.query("SELECT COUNT(*) FROM news;");
     if (parseInt(newsCheck.rows[0].count) === 0) {
@@ -130,6 +155,59 @@ app.post('/api/stocks', async (req, res) => {
       [symbol, type, entry, target, stop_loss, note, date || 'Today']
     );
     res.status(201).json(result.rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/auth/signup', async (req, res) => {
+  const { name, email, password } = req.body;
+  try {
+    const admins = ["kalyanjit@gmail.com", "djmedhi.proedgetrader@gmail.com"];
+    const role = admins.map(a => a.toLowerCase()).includes(email.trim().toLowerCase()) ? 'admin' : 'user';
+    const plan = role === 'admin' ? 'Club Pro' : 'Trader Club Plan';
+
+    const result = await pool.query(
+      "INSERT INTO users (name, email, password, role, plan) VALUES ($1, $2, $3, $4, $5) RETURNING id, name, email, role, plan;",
+      [name.trim(), email.trim(), password, role, plan]
+    );
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    if (err.code === '23505') {
+      res.status(400).json({ error: "Email already registered." });
+    } else {
+      res.status(500).json({ error: err.message });
+    }
+  }
+});
+
+app.post('/api/auth/login', async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const result = await pool.query("SELECT * FROM users WHERE email = $1;", [email.trim()]);
+    if (result.rows.length === 0) {
+      return res.status(401).json({ error: "Invalid email or password." });
+    }
+    const user = result.rows[0];
+    if (user.password !== password) {
+      return res.status(401).json({ error: "Invalid email or password." });
+    }
+    res.json({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      plan: user.plan
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/users', async (req, res) => {
+  try {
+    const result = await pool.query("SELECT id, name, email, role, plan, created_at FROM users ORDER BY id DESC;");
+    res.json(result.rows);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

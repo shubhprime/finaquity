@@ -30,6 +30,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/club" element={<Club />} />
           <Route path="/screener" element={<Screener />} />
+          <Route path="/screener/stocks" element={<Screener />} />
           <Route path="/algo-trade" element={<AlgoTrade />} />
           <Route path="/PastPerformance" element={<Success />} />
           <Route path="/LoginSignup" element={<LoginSignup />} />

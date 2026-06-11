@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Mail, Lock, User, ArrowRight, ShieldCheck } from 'lucide-react';
+import axios from 'axios';
 
 const LoginSignup = () => {
   const [searchParams] = useSearchParams();
@@ -11,23 +12,48 @@ const LoginSignup = () => {
   const [name, setName] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const admins = ["kalyanjit@gmail.com", "djmedhi.proedgetrader@gmail.com"];
-    const isAdminEmail = admins.map(a => a.toLowerCase()).includes(email.trim().toLowerCase());
+    const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:5000';
     
-    if (isAdminEmail) {
-      // Validate admin password
-      if (password !== "GreenmarketAdmin123!") {
-        alert("Invalid admin credentials!");
-        return;
+    try {
+      if (mode === 'login') {
+        const response = await axios.post(`${apiBase}/api/auth/login`, {
+          email: email.trim(),
+          password: password
+        });
+        
+        const user = response.data;
+        localStorage.setItem("userEmail", user.email);
+        localStorage.setItem("userName", user.name);
+        localStorage.setItem("userRole", user.role);
+        
+        if (user.role === 'admin') {
+          navigate('/admin');
+        } else {
+          navigate('/dashboard');
+        }
+      } else {
+        const response = await axios.post(`${apiBase}/api/auth/signup`, {
+          name: name.trim(),
+          email: email.trim(),
+          password: password
+        });
+        
+        const user = response.data;
+        localStorage.setItem("userEmail", user.email);
+        localStorage.setItem("userName", user.name);
+        localStorage.setItem("userRole", user.role);
+        
+        if (user.role === 'admin') {
+          navigate('/admin');
+        } else {
+          navigate('/dashboard');
+        }
       }
-      localStorage.setItem("userEmail", email.trim());
-      navigate('/admin');
-    } else {
-      localStorage.setItem("userEmail", email.trim());
-      navigate('/dashboard');
+    } catch (err) {
+      alert("Authentication failed: " + (err.response?.data?.error || err.message));
     }
   };
 

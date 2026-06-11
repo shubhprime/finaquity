@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Search, Filter, TrendingUp, Sparkles, SlidersHorizontal, ArrowUpDown } from 'lucide-react';
 
 const Screener = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [screenerType, setScreenerType] = useState('fundamental');
   const [activeFilter, setActiveFilter] = useState('undervalued');
 
@@ -92,10 +94,57 @@ const Screener = () => {
   const filters = screenerType === 'fundamental' ? fundamentalFilters : technicalFilters;
   const currentStocks = stockDatabase[activeFilter] || [];
 
+  // Map backend query parameter endpoints to component states
+  const endpoint = searchParams.get('endpoint');
+  
+  useEffect(() => {
+    if (endpoint) {
+      const mappings = {
+        'undervalued': { type: 'fundamental', filter: 'undervalued' },
+        'high-dividend': { type: 'fundamental', filter: 'dividend' },
+        'growth': { type: 'fundamental', filter: 'growth' },
+        'stable': { type: 'fundamental', filter: 'stable' },
+        'book-value': { type: 'fundamental', filter: 'debt' },
+        'golden-cross': { type: 'technical', filter: 'golden-cross' },
+        'high-volume': { type: 'technical', filter: 'volume' },
+        'new-high': { type: 'technical', filter: 'high-52w' },
+        'near-high': { type: 'technical', filter: 'oversold' },
+        'gap-up': { type: 'technical', filter: 'dma200' }
+      };
+      const match = mappings[endpoint];
+      if (match) {
+        setScreenerType(match.type);
+        setActiveFilter(match.filter);
+      }
+    }
+  }, [endpoint]);
+
+  const syncUrl = (filterId) => {
+    const reverseMappings = {
+      'undervalued': 'undervalued',
+      'dividend': 'high-dividend',
+      'growth': 'growth',
+      'stable': 'stable',
+      'debt': 'book-value',
+      'golden-cross': 'golden-cross',
+      'volume': 'high-volume',
+      'high-52w': 'new-high',
+      'oversold': 'near-high',
+      'dma200': 'gap-up'
+    };
+    setSearchParams({ endpoint: reverseMappings[filterId] || filterId });
+  };
+
   const handleTypeChange = (type) => {
     setScreenerType(type);
     const defaultFilter = type === 'fundamental' ? 'undervalued' : 'golden-cross';
     setActiveFilter(defaultFilter);
+    syncUrl(defaultFilter);
+  };
+
+  const handleFilterClick = (filterId) => {
+    setActiveFilter(filterId);
+    syncUrl(filterId);
   };
 
   return (
@@ -141,7 +190,7 @@ const Screener = () => {
           {filters.map((filter) => (
             <button
               key={filter.id}
-              onClick={() => setActiveFilter(filter.id)}
+              onClick={() => handleFilterClick(filter.id)}
               className={`px-4 py-2 rounded-full text-xs font-semibold border transition-all ${activeFilter === filter.id ? 'bg-emerald-500/10 border-emerald-400 text-emerald-400' : 'bg-zinc-900/40 border-white/5 text-gray-400 hover:border-white/10 hover:text-white'}`}
             >
               {filter.label}

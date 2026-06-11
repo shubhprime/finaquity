@@ -37,6 +37,7 @@ const Admin = () => {
   const [recentStocks, setRecentStocks] = useState([]);
   const [recentNews, setRecentNews] = useState([]);
   const [feedLoading, setFeedLoading] = useState(false);
+  const [users, setUsers] = useState([]);
 
   // List of authorized admin emails
   const adminEmails = [
@@ -66,6 +67,9 @@ const Admin = () => {
       
       const newsRes = await axios.get(`${apiBase}/api/news`);
       setRecentNews(newsRes.data.slice(0, 5));
+
+      const usersRes = await axios.get(`${apiBase}/api/users`);
+      setUsers(usersRes.data);
     } catch (err) {
       console.error("Failed to fetch recent data: ", err);
     } finally {
@@ -442,6 +446,49 @@ const Admin = () => {
                 {recentNews.length === 0 && <p className="text-xs text-gray-500 text-center py-6">No news articles found.</p>}
               </div>
             )}
+          </div>
+        </div>
+
+        {/* Registered Users panel */}
+        <div className="mt-8 fq-glass border border-white/10 bg-zinc-950/80 p-6">
+          <h3 className="text-sm font-bold text-white mb-6 flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+            Registered Clients & Collaborators
+          </h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b border-white/5 text-[10px] text-gray-500 font-bold uppercase tracking-wider">
+                  <th className="py-3 px-4">Name</th>
+                  <th className="py-3 px-4">Email</th>
+                  <th className="py-3 px-4">Role</th>
+                  <th className="py-3 px-4">Active Plan</th>
+                  <th className="py-3 px-4 text-right">Join Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((u, i) => (
+                  <tr key={i} className="border-b border-white/5 last:border-0 text-xs font-semibold text-gray-300 hover:bg-white/5 transition-colors">
+                    <td className="py-4 px-4 text-white font-bold">{u.name}</td>
+                    <td className="py-4 px-4 text-gray-400">{u.email}</td>
+                    <td className="py-4 px-4">
+                      <span className={`px-2 py-0.5 rounded text-[8px] font-bold uppercase ${u.role === 'admin' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/10' : 'bg-zinc-800 text-gray-400 border border-zinc-700'}`}>
+                        {u.role}
+                      </span>
+                    </td>
+                    <td className="py-4 px-4 font-bold text-white">{u.plan}</td>
+                    <td className="py-4 px-4 text-right text-gray-500">
+                      {u.created_at ? new Date(u.created_at).toLocaleDateString() : 'N/A'}
+                    </td>
+                  </tr>
+                ))}
+                {users.length === 0 && (
+                  <tr>
+                    <td colSpan="5" className="text-xs text-gray-500 text-center py-6">No users found.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
