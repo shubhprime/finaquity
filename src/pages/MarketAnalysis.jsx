@@ -3,7 +3,7 @@ import { useLocation, Link } from 'react-router-dom';
 import { 
   Newspaper, Database, Flame, Percent, Activity, BarChart2, 
   Landmark, Globe, LineChart, ShieldAlert, Sparkles, TrendingUp,
-  TrendingDown, ArrowUpRight, ArrowDownRight, Lock, Eye
+  TrendingDown, ArrowUpRight, ArrowDownRight, Lock, Eye, RefreshCw
 } from 'lucide-react';
 import axios from 'axios';
 
@@ -168,7 +168,12 @@ const MarketAnalysis = () => {
       axios.get(`${apiBase}/api/news`)
         .then(res => {
           if (Array.isArray(res.data) && res.data.length > 0) {
-            setNewsList(res.data);
+            const validNews = res.data.filter(item => item && typeof item === 'object' && item.title);
+            if (validNews.length > 0) {
+              setNewsList(validNews);
+            } else {
+              setNewsList(defaultNews);
+            }
           } else {
             setNewsList(defaultNews);
           }
