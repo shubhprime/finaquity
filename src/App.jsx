@@ -17,6 +17,7 @@ import Dashboard from './pages/Dashboard';
 import MarketAnalysis from './pages/MarketAnalysis';
 import TradeIdeas from './pages/TradeIdeas';
 import Admin from './pages/Admin';
+import StaticInfo from './pages/StaticInfo';
 
 function App() {
   return (
@@ -66,6 +67,22 @@ function App() {
           <Route path="/commodities-trade" element={<TradeIdeas />} />
           <Route path="/crypto-trades" element={<TradeIdeas />} />
           <Route path="/portfolio-hedge-ideas" element={<TradeIdeas />} />
+
+          {/* Static and Legal Pages */}
+          <Route path="/about" element={<StaticInfo />} />
+          <Route path="/team" element={<StaticInfo />} />
+          <Route path="/qtr-earnings" element={<StaticInfo />} />
+          <Route path="/chat-with-expert" element={<StaticInfo />} />
+          <Route path="/PortfolioAdvisory" element={<StaticInfo />} />
+          <Route path="/contact" element={<StaticInfo />} />
+          <Route path="/become-an-affiliate" element={<StaticInfo />} />
+          <Route path="/testimonials" element={<StaticInfo />} />
+          <Route path="/faqs" element={<StaticInfo />} />
+          <Route path="/ReturnAndCancellation" element={<StaticInfo />} />
+          <Route path="/TermsAndConditions" element={<StaticInfo />} />
+          <Route path="/PrivacyPolicy" element={<StaticInfo />} />
+          <Route path="/ShippingPolicy" element={<StaticInfo />} />
+          <Route path="/Disclaimer" element={<StaticInfo />} />
 
           {/* Fallback to Home */}
           <Route path="*" element={<Home />} />
