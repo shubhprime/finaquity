@@ -157,13 +157,26 @@ const MarketAnalysis = () => {
     if (path === '/market-news') {
       setNewsLoading(true);
       const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      
+      const defaultNews = [
+        { title: "Nifty hits record high of 23,450 led by IT and Banking rally.", source: "Reuters", time: "10 mins ago", sentiment: "Bullish" },
+        { title: "Reliance Industries announces expansion plan into green hydrogen storage.", source: "Bloomberg", time: "45 mins ago", sentiment: "Bullish" },
+        { title: "Global oil prices fall 1.8% on OPEC supply forecasting updates.", source: "FT", time: "2 hours ago", sentiment: "Neutral" },
+        { title: "IT major announces quarterly results beating market consensus by 4%.", source: "CNBC", time: "4 hours ago", sentiment: "Bullish" }
+      ];
+
       axios.get(`${apiBase}/api/news`)
         .then(res => {
           if (res.data && res.data.length > 0) {
             setNewsList(res.data);
+          } else {
+            setNewsList(defaultNews);
           }
         })
-        .catch(err => console.log("Failed to fetch news: ", err))
+        .catch(err => {
+          console.log("Failed to fetch news, using fallback mock data: ", err);
+          setNewsList(defaultNews);
+        })
         .finally(() => setNewsLoading(false));
     }
   }, [path]);
@@ -339,6 +352,46 @@ const MarketAnalysis = () => {
                       <td className={`py-4 px-4 text-right font-bold ${row.status === 'Positive' ? 'text-emerald-400' : 'text-rose-400'}`}>
                         {row.netValue}
                       </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        );
+
+      case '/volume-buzzers':
+        const volumeBuzzers = [
+          { symbol: "TATA STEEL", volume: "15.4M", avgVol: "3.2M", spike: "4.8x", price: 174.50, change: "+2.8%" },
+          { symbol: "ONGC", volume: "22.8M", avgVol: "6.8M", spike: "3.35x", price: 268.40, change: "+4.2%" },
+          { symbol: "COAL INDIA", volume: "18.2M", avgVol: "5.5M", spike: "3.3x", price: 442.50, change: "+3.1%" },
+          { symbol: "REC LTD", volume: "12.4M", avgVol: "4.1M", spike: "3.0x", price: 512.40, change: "+5.5%" },
+          { symbol: "PFC", volume: "14.1M", avgVol: "5.2M", spike: "2.7x", price: 485.10, change: "+2.9%" }
+        ];
+        return (
+          <div className="fq-glass p-6 border border-white/10 bg-zinc-950/80">
+            <h3 className="text-base font-bold text-white mb-6">Volume Buzzers (Spike vs 10-Day Avg)</h3>
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-white/5 text-[10px] text-gray-500 font-bold uppercase tracking-wider">
+                    <th className="py-3 px-4">Symbol</th>
+                    <th className="py-3 px-4 text-right">LTP (₹)</th>
+                    <th className="py-3 px-4 text-right">Today's Vol</th>
+                    <th className="py-3 px-4 text-right">Avg Vol</th>
+                    <th className="py-3 px-4 text-right">Spike</th>
+                    <th className="py-3 px-4 text-right">Change</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {volumeBuzzers.map((row, i) => (
+                    <tr key={i} className="border-b border-white/5 last:border-0 text-xs font-semibold text-gray-300 hover:bg-white/5 transition-colors">
+                      <td className="py-4 px-4 text-white font-bold">{row.symbol}</td>
+                      <td className="py-4 px-4 text-right">₹{row.price}</td>
+                      <td className="py-4 px-4 text-right">{row.volume}</td>
+                      <td className="py-4 px-4 text-right">{row.avgVol}</td>
+                      <td className="py-4 px-4 text-right text-emerald-400 font-bold">{row.spike}</td>
+                      <td className="py-4 px-4 text-right text-emerald-400">{row.change}</td>
                     </tr>
                   ))}
                 </tbody>
