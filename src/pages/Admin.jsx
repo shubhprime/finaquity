@@ -63,13 +63,19 @@ const Admin = () => {
     setFeedLoading(true);
     try {
       const stocksRes = await axios.get(`${apiBase}/api/stocks`);
-      setRecentStocks(stocksRes.data.slice(0, 5));
+      if (Array.isArray(stocksRes.data)) {
+        setRecentStocks(stocksRes.data.slice(0, 5));
+      }
       
       const newsRes = await axios.get(`${apiBase}/api/news`);
-      setRecentNews(newsRes.data.slice(0, 5));
+      if (Array.isArray(newsRes.data)) {
+        setRecentNews(newsRes.data.slice(0, 5));
+      }
 
       const usersRes = await axios.get(`${apiBase}/api/users`);
-      setUsers(usersRes.data);
+      if (Array.isArray(usersRes.data)) {
+        setUsers(usersRes.data);
+      }
     } catch (err) {
       console.error("Failed to fetch recent data: ", err);
     } finally {

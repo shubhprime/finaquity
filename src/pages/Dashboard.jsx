@@ -13,7 +13,7 @@ const Dashboard = () => {
     const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:5000';
     axios.get(`${apiBase}/api/stocks`)
       .then(res => {
-        if (res.data && res.data.length > 0) {
+        if (Array.isArray(res.data) && res.data.length > 0) {
           setActiveTrades(res.data);
         }
       })

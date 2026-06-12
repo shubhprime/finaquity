@@ -167,7 +167,7 @@ const MarketAnalysis = () => {
 
       axios.get(`${apiBase}/api/news`)
         .then(res => {
-          if (res.data && res.data.length > 0) {
+          if (Array.isArray(res.data) && res.data.length > 0) {
             setNewsList(res.data);
           } else {
             setNewsList(defaultNews);
